@@ -55,3 +55,12 @@ Having
 La clausula HAVING se usa en SQL para cuando existen condicionales que no pueden aplicarse en el WHERE.
 
         GROUP BY atrivuto(s) HAVING condicional
+
+@date 2020/10/12
+
+Algebra Relacional
+=====
+
+- JOIN: Retorna los registros que tienen un **match** en ambas tablas.
+- LEFT JOIN: Devuelve todos los registros de la tabla izquierda (tabla1) y los registros coincidentes de la tabla de la derecha (tabla2). El resultado es NULL desde el lado derecho, si no hay coincidencia.
+- RIGTH JOIN: Devuelve todos los registros de la tabla derecha (table2) y los registros coincidentes de la tabla de la izquierda (tabla1). El resultado es NULL desde el lado izquierdo, si no hay coincidencia.
