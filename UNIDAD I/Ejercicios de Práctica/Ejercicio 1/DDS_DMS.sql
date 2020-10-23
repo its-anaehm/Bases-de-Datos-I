@@ -9,24 +9,24 @@ Estudiante, Asignatura, Maestro:
 
 DROP DATABASE IF EXISTS Exercise1DB;
 
-CREATE TABLE Exercise1DB CHARACTER SET utf8;
+CREATE DATABASE Exercise1DB CHARACTER SET utf8;
 
 USE Exercise1DB;
 
 CREATE TABLE Student(
     id_Student INT AUTO_INCREMENT PRIMARY KEY,
-    var_name VARCHAR(25) NOT NULL,
-    var_lastName VARCHAR(25) NOT NULL,
-    var_account VARCHAR NOT NULL,
-    int_age TINYINT NOT NULL
+    tex_name TEXT NOT NULL,
+    tex_lastName TEXT NOT NULL,
+    tex_account TEXT NOT NULL,
+    tin_age TINYINT NOT NULL
 );
 
 CREATE TABLE Class(
     id_Class INT AUTO_INCREMENT PRIMARY KEY,
-    var_name VARCHAR(25) NOT NULL,
+    tex_name TEXT NOT NULL,
     int_hour INT NOT NULL,
-    var_career VARCHAR NOT NULL,
-    var_modality VARCHAR NOT NULL
+    tex_career TEXT NOT NULL,
+    enu_modality ENUM('Morning', 'Evening')
 );
 
 CREATE TABLE Teacher(
@@ -44,7 +44,7 @@ CREATE TABLE Enrollment(
 CREATE TABLE Assigment(
     int_id_Class INT NOT NULL,
     int_id_Teacher INT NOT NULL
-)
+);
 
 ALTER TABLE Assigment
 ADD CONSTRAINT Assigment_TEA_FK
@@ -59,7 +59,7 @@ ADD CONSTRAINT Matricula_CLA_FK
     FOREIGN KEY (int_id_Class) REFERENCES Class (id_Class);
 
 
-INSERT INTO Student(var_name,var_lastName,var_account,int_age) VALUES
+INSERT INTO Student(tex_name,tex_lastName,tex_account,tin_age) VALUES
     ("Ana","Hernández","20171001620",21),
     ("Rodrigo","Coello","20191031456",18),
     ("Alejandra","Ramírez","20151000972",23),
@@ -67,15 +67,15 @@ INSERT INTO Student(var_name,var_lastName,var_account,int_age) VALUES
     ("Ronald","Ortega","20181000203",20)
 ;
 
-INSERT INTO Class(var_name,dat_hour,var_career,var_modality) VALUES
+INSERT INTO Class(tex_name,int_hour,tex_career,enu_modality) VALUES
     ("Sistemas de Información",10,"Ing. en Sistemas","Morning"),
     ("Bases De Datos I",09,"Ing. en Sistemas","Morning"),
     ("Sistemas Operativos II",08,"Ing. en Sistemas","Morning"),
     ("Ecuaciones Diferenciales",07,"Matemática","Morning"),
-    ("Liderazgo Para El Cambio Informático",17,"Ing. en Sistemas"."Evening")
+    ("Liderazgo Para El Cambio Informático",17,"Ing. en Sistemas","Evening")
 ;
 
-INSERT INTO TEACHER(tex_nombre,tex_lastName,flo_salary) VALUES
+INSERT INTO Teacher(tex_name,tex_lastName,flo_salary) VALUES
     ("Panchito","Medina",5378.90),
     ("Jairo","Corrales",10596.85),
     ("Timoteo","Azfura",23456.13),
@@ -106,8 +106,8 @@ INSERT INTO Assigment() VALUES
 
 SELECT Enrollment.int_id_Student AS "ID", COUNT(*) AS "Clases" FROM Enrollment GROUP BY Enrollment.int_id_Student;
 
-SELECT Student.var_nombre AS "Nombre", Class.var_nombre AS "Asignatura" FROM Enrollment JOIN Student ON  Enrollment.int_id_Student = Student.id_Student JOIN Class ON Enrollment.int_id_Class = Class.id_Class ORDER BY `Nombre` ASC;
+SELECT Student.tex_name AS "Nombre", Class.tex_name AS "Asignatura" FROM Enrollment JOIN Student ON  Enrollment.int_id_Student = Student.id_Student JOIN Class ON Enrollment.int_id_Class = Class.id_Class ORDER BY `Nombre` ASC;
 
 SELECT AVG(prom.Cantidad_Clases) AS "Promedio de clases Matriculadas" FROM (SELECT Enrollment.int_id_Student, COUNT(*) AS "Cantidad_Clases" FROM Enrollment GROUP BY Enrollment.int_id_Student) AS prom;
 
-SELECT AVG(prom.Cantidad_Clases) AS "Promedio de clases Matriculadas" FROM (SELECT Assigment.int_id_Maestro, COUNT(*) AS "Cantidad_Clases" FROM Assigment GROUP BY Assigment.int_id_Maestro) AS prom;
+SELECT AVG(prom.Cantidad_Clases) AS "Promedio de clases Matriculadas" FROM (SELECT Assigment.int_id_Teacher, COUNT(*) AS "Cantidad_Clases" FROM Assigment GROUP BY Assigment.int_id_Teacher) AS prom;
